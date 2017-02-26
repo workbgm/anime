@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Anime timeline | anime.js</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:title" content="anime.js">
+  <meta property="og:url" content="http://anime-js.com">
+  <meta property="og:description" content="Javascript Animation Engine">
+  <meta property="og:image" content="http://anime-js.com/documentation/assets/img/icons/og.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="anime.js">
+  <meta name="twitter:site" content="@juliangarnier">
+  <meta name="twitter:description" content="Javascript Animation Engine">
+  <meta name="twitter:image" content="http://anime-js.com/documentation/assets/img/icons/twitter.png">
+  <link rel="apple-touch-icon-precomposed" href="../assets/img/icons/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="../assets/img/icons/favicon.png" >
+  <link href="../assets/css/anime.css" rel="stylesheet">
+  <script src="../../anime.js"></script>
+  <style>
+
+    .particule {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 1rem;
+      height: 1rem;
+      margin: -.5rem 0 0 -.5rem;
+      background: white;
+      transform: scale(0);
+    }
+
+  </style>
+</head>
+<body></body>
+<script>
+
+  var maxElements = 10;
+  var colors = ['#FF1461', '#18FF92', '#5A87FF', '#FBF38C'];
+
+  var createElements = (function() {
+    var fragment = document.createDocumentFragment();
+    for (var i = 0; i < maxElements; i++) {
+      var el = document.createElement('div');
+      el.classList.add('particule');
+      fragment.appendChild(el);
+    }
+    document.body.appendChild(fragment);
+  })();
+
+  var timeline = anime.timeline({
+    loop: true
+  });
+
+  timeline
+    .add({
+      targets: 'div',
+      translateX: -100,
+      translateY: -100,
+      scale: 2,
+      background: '#FF1461'
+    })
+    .add({
+      targets: 'div',
+      translateX: -100,
+      translateY: 100,
+      scale: 3,
+      background: '#18FF92'
+    })
+    .add({
+      targets: 'div',
+      translateX: 100,
+      translateY: 100,
+      scale: 4,
+      background: '#5A87FF'
+    })
+    .add({
+      targets: 'div',
+      translateX: 100,
+      translateY: -100,
+      scale: 5,
+      background: '#FBF38C'
+    })
+    .add({
+      targets: 'div',
+      translateX: 0,
+      translateY: 0,
+      scale: 1,
+      background: '#FFF'
+    });
+
+  </script>
+  <script src="../assets/js/stats.js"></script>
+</html>

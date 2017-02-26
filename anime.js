@@ -717,34 +717,27 @@
       if (instance[cb]) instance[cb](instance);
     }
 
-    function countIteration() {
-      if (instance.remaining && instance.remaining !== true) {
-        instance.remaining--;
-      }
-    }
-
     function setInstanceProgress(engineTime) {
       const insDuration = instance.duration;
       const insOffset = instance.offset;
       const insDelay = instance.delay;
       const insCurrentTime = instance.currentTime;
+      const insRemaining = instance.remaining;
       const insReversed = instance.reversed;
       const insTime = minMaxValue(adjustTime(engineTime), 0, insDuration);
-      if (insTime > insOffset && insTime < insDuration) {
+      if (insTime >= insOffset && insTime <= insDuration) {
         setAnimationsProgress(insTime);
         if (!instance.began && insTime >= insDelay) {
           instance.began = true;
           setCallback('begin');
         }
         setCallback('run');
-      } else {
-        if (insTime <= insOffset && insCurrentTime !== 0) {
-          setAnimationsProgress(0);
-          if (insReversed) countIteration();
-        }
-        if (insTime >= insDuration && insCurrentTime !== insDuration) {
-          setAnimationsProgress(insDuration);
-          if (!insReversed) countIteration();
+      }
+      if (insRemaining && insRemaining !== true) {
+        if (
+        (insTime === insOffset && insCurrentTime !== 0 && insReversed) ||
+        (insTime === insDuration && insCurrentTime !== insDuration && !insReversed)) {
+          instance.remaining--;
         }
       }
       if (engineTime >= insDuration) {
@@ -821,9 +814,9 @@
     for (let i = arrayLength(activeInstances)-1; i >= 0; i--) {
       const instance = activeInstances[i];
       const animations = instance.animations;
-      for (let anim = arrayLength(animations)-1; a >= 0; a--) {
-        if (targetsArray.some(a => a === animations[anim].animatable.target)) {
-          animations.splice(anim, 1);
+      for (let a = arrayLength(animations)-1; a >= 0; a--) {
+        if (targetsArray.some(t => t === animations[t].animatable.target)) {
+          animations.splice(a, 1);
           if (!arrayLength(animations)) instance.pause();
         }
       }
@@ -842,9 +835,11 @@
         const tlDuration = tl.duration;
         insParams.autoplay = false;
         insParams.offset = is.und(offset) ? tlDuration : getRelativeValue(offset, tlDuration);
+        tl.seek(insParams.offset);
         const ins = anime(insParams);
         if (ins.duration > tlDuration) tl.duration = ins.duration;
         tl.children.push(ins);
+        tl.seek(0);
       });
       return tl;
     }
