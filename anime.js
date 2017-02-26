@@ -244,10 +244,6 @@
     return [o];
   }
 
-  function arrayContains(arr, val) {
-    return arr.some(a => a === val);
-  }
-
   // Objects
 
   function objectHas(obj, prop) {
@@ -350,9 +346,10 @@
   }
 
   function getAnimationType(el, prop) {
-    if (is.dom(el) && arrayContains(validTransforms, prop)) return 'transform';
-    if (is.dom(el) && (el.getAttribute(prop) || (is.svg(el) && el[prop]))) return 'attribute';
-    if (is.dom(el) && (prop !== 'transform' && getCSSValue(el, prop))) return 'css';
+    const isDom = is.dom(el);
+    if (isDom && validTransforms.some(a => a === prop)) return 'transform';
+    if (isDom && (el.getAttribute(prop) || (is.svg(el) && el[prop]))) return 'attribute';
+    if (isDom && (prop !== 'transform' && (prop in el.style))) return 'css';
     if (el[prop] != null) return 'object';
   }
 
@@ -824,9 +821,9 @@
     for (let i = arrayLength(activeInstances)-1; i >= 0; i--) {
       const instance = activeInstances[i];
       const animations = instance.animations;
-      for (let a = arrayLength(animations)-1; a >= 0; a--) {
-        if (arrayContains(targetsArray, animations[a].animatable.target)) {
-          animations.splice(a, 1);
+      for (let anim = arrayLength(animations)-1; a >= 0; a--) {
+        if (targetsArray.some(a => a === animations[anim].animatable.target)) {
+          animations.splice(anim, 1);
           if (!arrayLength(animations)) instance.pause();
         }
       }
