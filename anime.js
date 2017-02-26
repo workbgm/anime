@@ -672,8 +672,12 @@
     }
 
     function syncInstanceChildren(insTime) {
+      let i = 0;
       const children = instance.children;
-      for (let i = 0; i < arrayLength(children); i++) children[i].seek(insTime);
+      while (i < arrayLength(children)) {
+        children[i].seek(insTime);
+        i++;
+      }
     }
 
     function setAnimationsProgress(insTime) {
