@@ -739,8 +739,8 @@
       }
       if (insRemaining && insRemaining !== true) {
         if (
-        (insTime === insOffset && insCurrentTime !== 0 && insReversed) ||
-        (insTime === insDuration && insCurrentTime !== insDuration && !insReversed)) {
+        (insReversed && insTime === insOffset && insCurrentTime !== 0) ||
+        (!insReversed && insTime === insDuration && insCurrentTime !== insDuration)) {
           instance.remaining--;
         }
       }
