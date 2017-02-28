@@ -8,10 +8,9 @@ var stats = new Stats();
 stats.showPanel(0);
 document.body.appendChild(stats.dom);
 
-anime({
-  update: function() {
-    stats.begin();
-    stats.end();
-  },
-  duration: Infinity
-});
+requestAnimationFrame(
+  function loop() {
+    stats.update();
+    requestAnimationFrame(loop)
+  }
+);

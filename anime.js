@@ -534,11 +534,9 @@
     return prop.tweens.map(t => {
       let tween = normalizeTweenValues(t, animatable);
       const tweenValue = tween.value;
-      const originalValue = getOriginalTargetValue(animatable.target, prop.name);
-      const previousValue = previousTween ? previousTween.to.original : originalValue;
-      const from = is.arr(tweenValue) ? tweenValue[0] : previousValue;
+      const from = is.arr(tweenValue) ? tweenValue[0] : (previousTween ? previousTween.to.original : getOriginalTargetValue(animatable.target, prop.name));
       const to = getRelativeValue(is.arr(tweenValue) ? tweenValue[1] : tweenValue, from);
-      const unit = getUnit(to) || getUnit(from) || getUnit(originalValue);
+      let unit = getUnit(to) || getUnit(from) || getUnit(getOriginalTargetValue(animatable.target, prop.name));
       tween.isPath = isPath(tweenValue);
       tween.from = decomposeValue(from, unit);
       tween.to = decomposeValue(to, unit);
