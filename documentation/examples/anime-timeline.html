@@ -40,56 +40,142 @@
   </style>
 </head>
 <body>
-  <div></div>
-  <div></div>
-  <div></div>
-  <div></div>
+  <div class="no-offset"></div>
+  <div class="relative-offset"></div>
+  <div class="absolute-offset"></div>
 </body>
 <script>
 
-  var timeline = anime.timeline();
+  var noOffset = anime.timeline({
+    autoplay: true
+  });
 
-  timeline
+  noOffset
     .add({
-      targets: 'div',
+      targets: '.no-offset',
       translateX: -100,
       translateY: -100,
       scale: 2,
       background: '#FF1461',
     })
     .add({
-      targets: 'div',
+      targets: '.no-offset',
+      translateX: -100,
+      translateY: 100,
+      scale: 3,
+      background: '#18FF92'
+    })
+    .add({
+      targets: '.no-offset',
+      translateX: 100,
+      translateY: 100,
+      rotate: 120,
+      scale: 4,
+      background: '#5A87FF'
+    })
+    .add({
+      targets: '.no-offset',
+      translateX: 100,
+      translateY: -100,
+      scale: 5,
+      background: '#FBF38C'
+    })
+    .add({
+      targets: '.no-offset',
+      translateX: 100,
+      translateY: -100,
+      scale: '+=8',
+      background: '#FBF38C'
+    })
+
+  var relativeOffset = anime.timeline();
+
+  relativeOffset
+    .add({
+      targets: '.relative-offset',
+      translateX: -100,
+      translateY: -100,
+      scale: 2,
+      background: '#FF1461',
+    })
+    .add({
+      targets: '.relative-offset',
       translateX: -100,
       translateY: 100,
       scale: 3,
       background: '#18FF92',
-      offset: '-=650'
+      offset: '-=500'
     })
     .add({
-      targets: 'div',
+      targets: '.relative-offset',
       translateX: 100,
       translateY: 100,
       rotate: 120,
       scale: 4,
       background: '#5A87FF',
-      offset: '-=650'
+      offset: '-=500'
     })
     .add({
-      targets: 'div',
+      targets: '.relative-offset',
       translateX: 100,
       translateY: -100,
       scale: 5,
       background: '#FBF38C',
-      offset: '-=650'
+      offset: '+=500'
     })
     .add({
-      targets: 'div',
-      translateX: 0,
-      translateY: 0,
-      scale: 1,
-      background: '#FFF',
-      offset: '-=650'
-    });
+      targets: '.relative-offset',
+      translateX: 100,
+      translateY: -100,
+      scale: '+=8',
+      background: '#FBF38C',
+      offset: '+=500'
+    })
+
+  var absoluteOffset = anime.timeline();
+
+  absoluteOffset
+    .add({
+      targets: '.absolute-offset',
+      translateX: -100,
+      translateY: -100,
+      scale: 2,
+      background: '#FF1461',
+      offset: 0
+    })
+    .add({
+      targets: '.absolute-offset',
+      translateX: -100,
+      translateY: 100,
+      scale: 3,
+      background: '#18FF92',
+      offset: 1000
+    })
+    .add({
+      targets: '.absolute-offset',
+      translateX: 100,
+      translateY: 100,
+      rotate: 120,
+      scale: 4,
+      background: '#5A87FF',
+      offset: 2000
+    })
+    .add({
+      targets: '.absolute-offset',
+      translateX: 100,
+      translateY: -100,
+      scale: 5,
+      background: '#FBF38C',
+      offset: 3000
+    })
+    .add({
+      targets: '.absolute-offset',
+      translateX: 100,
+      translateY: -100,
+      scale: '+=8',
+      background: '#FBF38C',
+      offset: 4000
+    })
 
   </script>
   <script src="../assets/js/stats.js"></script>

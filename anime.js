@@ -833,16 +833,18 @@
     tl.children = [];
     tl.add = function(instancesParams) {
       toArray(instancesParams).forEach(insParams => {
-        const offset = insParams.offset;
         const tlDuration = tl.duration;
+        const insOffset = insParams.offset;
         insParams.autoplay = false;
-        insParams.offset = is.und(offset) ? tlDuration : getRelativeValue(offset, tlDuration);
+        insParams.offset = is.und(insOffset) ? tlDuration : getRelativeValue(insOffset, tlDuration);
         tl.seek(insParams.offset);
         const ins = anime(insParams);
         if (ins.duration > tlDuration) tl.duration = ins.duration;
         tl.children.push(ins);
         tl.seek(0);
       });
+      tl.reset();
+      if (tl.autoplay) tl.play();
       return tl;
     }
     return tl;
