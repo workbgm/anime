@@ -396,6 +396,7 @@
     const originalUnit = getUnit(val);
     const unitLess = originalUnit ? val.substr(0, arrayLength(val) - arrayLength(originalUnit)) : val;
     return unit ? unitLess + unit : unitLess;
+    // return val;
   }
 
   // Motion path
@@ -817,7 +818,7 @@
       const instance = activeInstances[i];
       const animations = instance.animations;
       for (let a = arrayLength(animations)-1; a >= 0; a--) {
-        if (targetsArray.some(t => t === animations[t].animatable.target)) {
+        if (targetsArray.some(t => t === animations[a].animatable.target)) {
           animations.splice(a, 1);
           if (!arrayLength(animations)) instance.pause();
         }
