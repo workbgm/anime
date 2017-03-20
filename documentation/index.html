@@ -19,7 +19,8 @@
   <link href="assets/css/anime.css" rel="stylesheet">
   <link href="assets/css/anime-theme.css" rel="stylesheet">
   <link href="assets/css/documentation.css" rel="stylesheet">
-  <script src="../anime.min.js"></script>
+  <!-- <script src="../anime.min.js"></script> -->
+  <script src="../anime.js"></script>
 </head>
 <body>
   <div class="content">
@@ -871,6 +872,47 @@ absoluteOffset
     translateX: 250,
     easing: 'easeOutExpo',
     offset: 0 // Starts at 0ms of the timeline
+  });
+
+</script>
+</div>
+
+<div id="TLChainTransforms" class="demo">
+  <h3 class="demo-title">Chainable transforms</h3>
+  <div class="demo-content">
+    <div class="line">
+      <div class="square shadow"></div>
+      <div class="square el"></div>
+    </div>
+    <div class="line">
+      <div class="circle shadow"></div>
+      <div class="circle el"></div>
+    </div>
+    <div class="line">
+      <div class="triangle shadow"></div>
+      <div class="triangle el"></div>
+    </div>
+  </div>
+<script>var TLChainTransforms = anime.timeline({
+  direction: 'alternate',
+  loop: true
+});
+
+TLChainTransforms
+  .add({
+    targets: '#TLChainTransforms .el',
+    translateX: 80,
+    translateY: -30
+  })
+  .add({
+    targets: '#TLChainTransforms .el',
+    translateX: 160,
+    translateY: 30
+  })
+  .add({
+    targets: '#TLChainTransforms .el',
+    translateX: 250,
+    translateY: -30
   });
 
 </script>

@@ -43,6 +43,10 @@
   <div class="no-offset"></div>
   <div class="relative-offset"></div>
   <div class="absolute-offset"></div>
+  <div class="multiple-targets-01"></div>
+  <div class="multiple-targets-02"></div>
+  <div class="multiple-targets-03"></div>
+  <div class="multiple-targets-04"></div>
 </body>
 <script>
 
@@ -96,7 +100,7 @@
       background: '#FBF38C',
       begin: function() { console.log('animation 5 began')},
       complete: function() { console.log('animation 5 completed')}
-    })
+    });
 
   var relativeOffset = anime.timeline();
 
@@ -140,7 +144,7 @@
       scale: '+=8',
       background: '#FBF38C',
       offset: '+=500'
-    })
+    });
 
   var absoluteOffset = anime.timeline();
 
@@ -185,7 +189,43 @@
       scale: '+=8',
       background: '#FBF38C',
       offset: 4000
+    });
+
+  var multipleTargets = anime.timeline({
+    autoplay: true
+  });
+
+  multipleTargets
+    .add({
+      targets: '.multiple-targets-01',
+      translateY: -100,
+      scale: 8,
+      background: '#FF1461'
     })
+    .add({
+      targets: '.multiple-targets-02',
+      translateY: -100,
+      scale: 8,
+      background: '#18FF92'
+    })
+    .add({
+      targets: '.multiple-targets-03',
+      translateY: -100,
+      scale: 8,
+      background: '#5A87FF'
+    })
+    .add({
+      targets: '.multiple-targets-04',
+      translateY: -100,
+      scale: 8,
+      background: '#FBF38C'
+    })
+    .add({
+      targets: ['.multiple-targets-01', '.multiple-targets-02', '.multiple-targets-03', '.multiple-targets-04'],
+      translateY: -100,
+      scale: 13,
+      background: '#FBF38C'
+    });
 
   </script>
   <script src="../assets/js/stats.js"></script>

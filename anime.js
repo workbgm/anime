@@ -847,7 +847,11 @@
       });
       tl.seek(0);
       tl.reset();
-      tl.children.forEach( i => i.reset());
+      for (let i = tl.children.length; i--; ){
+        const child = tl.children[i];
+        child.seek(child.offset); 
+        child.reset();
+      }
       if (tl.autoplay) tl.play();
       return tl;
     }
