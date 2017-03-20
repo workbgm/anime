@@ -57,13 +57,17 @@
       translateY: -100,
       scale: 2,
       background: '#FF1461',
+      begin: function() { console.log('animation 1 began')},
+      complete: function() { console.log('animation 1 completed')}
     })
     .add({
       targets: '.no-offset',
       translateX: -100,
       translateY: 100,
       scale: 3,
-      background: '#18FF92'
+      background: '#18FF92',
+      begin: function() { console.log('animation 2 began')},
+      complete: function() { console.log('animation 2 completed')}
     })
     .add({
       targets: '.no-offset',
@@ -71,21 +75,27 @@
       translateY: 100,
       rotate: 120,
       scale: 4,
-      background: '#5A87FF'
+      background: '#5A87FF',
+      begin: function() { console.log('animation 3 began')},
+      complete: function() { console.log('animation 3 completed')}
     })
     .add({
       targets: '.no-offset',
       translateX: 100,
       translateY: -100,
       scale: 5,
-      background: '#FBF38C'
+      background: '#FBF38C',
+      begin: function() { console.log('animation 4 began')},
+      complete: function() { console.log('animation 4 completed')}
     })
     .add({
       targets: '.no-offset',
       translateX: 100,
       translateY: -100,
       scale: '+=8',
-      background: '#FBF38C'
+      background: '#FBF38C',
+      begin: function() { console.log('animation 5 began')},
+      complete: function() { console.log('animation 5 completed')}
     })
 
   var relativeOffset = anime.timeline();

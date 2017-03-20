@@ -832,6 +832,7 @@
     tl.duration = 0;
     tl.children = [];
     tl.add = function(instancesParams) {
+      tl.children.forEach( i => { i.began = true; i.completed = true; });
       toArray(instancesParams).forEach(insParams => {
         const tlDuration = tl.duration;
         const insOffset = insParams.offset;
@@ -840,10 +841,12 @@
         tl.seek(insParams.offset);
         const ins = anime(insParams);
         if (ins.duration > tlDuration) tl.duration = ins.duration;
+        ins.began = true;
         tl.children.push(ins);
-        tl.seek(0);
       });
+      tl.seek(0);
       tl.reset();
+      tl.children.forEach( i => i.reset());
       if (tl.autoplay) tl.play();
       return tl;
     }
