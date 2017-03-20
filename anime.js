@@ -317,6 +317,7 @@
   function getUnit(val) {
     const split = /([\+\-]?[0-9#\.]+)(%|px|pt|em|rem|in|cm|mm|ex|pc|vw|vh|deg|rad|turn)?/.exec(val);
     if (split) return split[2];
+    // if (split && split[2] && val.indexOf(split[2], arrayLength(val) - arrayLength(split[2])) !== -1) return split[2];
   }
 
   function getTransformUnit(propName) {
@@ -393,10 +394,7 @@
 
   function validateValue(val, unit) {
     if (is.col(val)) return colorToRgb(val);
-    const originalUnit = getUnit(val);
-    const unitLess = originalUnit ? val.substr(0, arrayLength(val) - arrayLength(originalUnit)) : val;
-    return unit ? unitLess + unit : unitLess;
-    // return val;
+    return unit && !isNaN(val) ? val + unit : val;
   }
 
   // Motion path
@@ -442,11 +440,11 @@
 
   function decomposeValue(val, unit) {
     const rgx = /-?\d*\.?\d+/g;
-    const value = validateValue((isPath(val) ? val.totalLength : val), unit) + '';
+    const value = validateValue((isPath(val) ? val.totalLength : val), unit);
     return {
       original: value,
-      numbers: value.match(rgx) ? value.match(rgx).map(Number) : [0],
-      strings: value.split(rgx)
+      numbers: !is.str(value) ? [value] : value.match(rgx) ? value.match(rgx).map(Number) : [0],
+      strings: is.str(value) ? value.split(rgx) : [0, 0]
     }
   }
 
@@ -535,9 +533,11 @@
     return prop.tweens.map(t => {
       let tween = normalizeTweenValues(t, animatable);
       const tweenValue = tween.value;
-      const from = is.arr(tweenValue) ? tweenValue[0] : (previousTween ? previousTween.to.original : getOriginalTargetValue(animatable.target, prop.name));
+      const originalValue = getOriginalTargetValue(animatable.target, prop.name);
+      const previousValue = previousTween ? previousTween.to.original : originalValue;
+      const from = is.arr(tweenValue) ? tweenValue[0] : previousValue;
       const to = getRelativeValue(is.arr(tweenValue) ? tweenValue[1] : tweenValue, from);
-      let unit = getUnit(to) || getUnit(from) || getUnit(getOriginalTargetValue(animatable.target, prop.name));
+      const unit = getUnit(to) || getUnit(from) || getUnit(originalValue);
       tween.isPath = isPath(tweenValue);
       tween.from = decomposeValue(from, unit);
       tween.to = decomposeValue(to, unit);
