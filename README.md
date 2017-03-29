@@ -158,7 +158,7 @@ Any DOM Attribute containing a numerical values can be animated:
 ```javascript
 anime({
   targets: input,
-  value: 1000 // Animate the input value to 1000
+  value: 1000, // Animate the input value to 1000
   round: 1 // Remove decimals by rounding the value
 });
 ```
@@ -272,7 +272,7 @@ anime({
   translateX: 100,
   duration: 2000,
   loop: 3, // Play the animation 3 times
-  direction: 'reverse' // Play the animation in reverse
+  direction: 'reverse', // Play the animation in reverse
   autoplay: false // Animation paused by default
 });
 ```
@@ -788,7 +788,7 @@ Define a Bézier curve with an `Array` of 4 coordinates:
 anime({
   targets: 'div',
 	translateX: 100,
-	easing: [.91,-0.54,.29,1.56],
+	easing: [.91,-0.54,.29,1.56]
 });
 ```
 
